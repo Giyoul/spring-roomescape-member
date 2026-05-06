@@ -146,22 +146,22 @@
 
 ### 공통 API (시간)
 
-| 기능            | 메서드 / URL          | 요청 본문       | 응답                      |
-|:--------------|:--------------------|:------------|:------------------------|
-| **시간 조회**     | `GET /times`        | —           | `200 [{id, startAt}]`   |
-| **시간 추가**     | `POST /times`       | `{startAt}` | `200 {id, startAt}`     |
-| **시간 삭제**     | `DELETE /times/{id}` | —          | `200`                   |
+| 기능            | 메서드 / URL          | 요청 본문       | 응답                    |
+|:--------------|:--------------------|:------------|:----------------------|
+| **시간 조회**     | `GET /times`        | —           | `200 [{id, startAt}]` |
+| **시간 추가**     | `POST /times`       | `{startAt}` | `201 {id, startAt}`   |
+| **시간 삭제**     | `DELETE /times/{id}` | —          | `204`                 |
 
 ### 사용자 API
 
-| 기능                  | 메서드 / URL                          | 요청 본문 / 쿼리 파라미터                     | 응답                                                                                           |
-|:--------------------|:------------------------------------|:---------------------------------------|:---------------------------------------------------------------------------------------------|
-| **테마 전체 조회**        | `GET /themes`                       | —                                      | `200 [{id, name, description, thumbnailUrl}]`                                                |
-| **인기 테마 조회**        | `GET /themes?condition=popular&size={n}` | —                                 | `200 [{id, name, description, thumbnailUrl}]`                                                |
-| **테마별 예약 가능 시간 조회** | `GET /themes/{id}/times?date={date}` | —                                     | `200 [{id, startAt, isAvailable}]`                                                           |
-| **예약 조회**           | `GET /reservations?username={name}` | —                                      | `200 [{id, date, themeName, themeDescription, themeThumbnailUrl, time}]`                     |
-| **예약 추가**           | `POST /reservations`                | `{name, date, timeId, themeId}`        | `200 {id, date, themeName, themeDescription, themeThumbnailUrl, time}`                       |
-| **예약 삭제**           | `DELETE /reservations/{id}`         | —                                      | `200`                                                                                        |
+| 기능                  | 메서드 / URL                          | 요청 본문 / 쿼리 파라미터                     | 응답                                                                       |
+|:--------------------|:------------------------------------|:---------------------------------------|:-------------------------------------------------------------------------|
+| **테마 전체 조회**        | `GET /themes`                       | —                                      | `200 [{id, name, description, thumbnailUrl}]`                            |
+| **인기 테마 조회**        | `GET /themes?condition=popular&size={n}` | —                                 | `200 [{id, name, description, thumbnailUrl}]`                            |
+| **테마별 예약 가능 시간 조회** | `GET /themes/{id}/times?date={date}` | —                                     | `200 [{id, startAt, isAvailable}]`                                       |
+| **예약 조회**           | `GET /reservations?username={name}` | —                                      | `200 [{id, date, themeName, themeDescription, themeThumbnailUrl, time}]` |
+| **예약 추가**           | `POST /reservations`                | `{name, date, timeId, themeId}`        | `201 {id, date, themeName, themeDescription, themeThumbnailUrl, time}`   |
+| **예약 삭제**           | `DELETE /reservations/{id}`         | —                                      | `204`                                                                    |
 
 ---
 
