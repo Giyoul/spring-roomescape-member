@@ -18,7 +18,7 @@ public class ReservationDao {
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert jdbcInsert;
 
-    private final RowMapper<Reservation> reservationRowMapper = (rs, rowNum) -> Reservation.create(
+    private final RowMapper<Reservation> reservationRowMapper = (rs, rowNum) -> new Reservation(
             rs.getLong("reservation_id"),
             rs.getString("name"),
             rs.getDate("date").toLocalDate(),
@@ -75,7 +75,7 @@ public class ReservationDao {
                 "time_id", reservation.getTime().getId(),
                 "theme_id", reservation.getTheme().getId()
         )).longValue();
-        return Reservation.create(id, reservation.getName(), reservation.getDate(),
+        return new Reservation(id, reservation.getName(), reservation.getDate(),
                 reservation.getCreatedAt(), reservation.getTime(), reservation.getTheme());
     }
 
@@ -95,9 +95,10 @@ public class ReservationDao {
                 Integer.class, date, timeId, themeId), 0) > 0;
     }
 
-    public Reservation update(long id, LocalDate date, long timeId) {
-        jdbcTemplate.update("UPDATE reservation SET date = ?, time_id = ? WHERE id = ?", date, timeId, id);
-        return findById(id).orElseThrow();
+    public Reservation update(Reservation reservation) {
+        jdbcTemplate.update("UPDATE reservation SET date = ?, time_id = ? WHERE id = ?",
+                reservation.getDate(), reservation.getTime().getId(), reservation.getId());
+        return findById(reservation.getId()).orElseThrow();
     }
 
     public void delete(long id) {

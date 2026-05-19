@@ -41,7 +41,7 @@ public class ReservationService {
         if (reservationDao.existsByDateAndTimeIdAndThemeId(date, timeId, themeId)) {
             throw new ReservationConflictException("이미 예약된 시간입니다.");
         }
-        Reservation reservation = Reservation.create(name, date, LocalDateTime.now(clock), time, theme);
+        Reservation reservation = new Reservation(name, date, LocalDateTime.now(clock), time, theme);
         return reservationDao.save(reservation);
     }
 
@@ -51,11 +51,11 @@ public class ReservationService {
                 .orElseThrow(() -> new ReservationNotFoundException("존재하지 않는 예약입니다."));
         ReservationTime time = reservationTimeDao.findById(timeId)
                 .orElseThrow(() -> new ReservationTimeNotFoundException("존재하지 않는 예약 시간입니다."));
-        reservation.withUpdated(date, time, LocalDateTime.now(clock));
+        Reservation updated = reservation.withUpdated(date, time, LocalDateTime.now(clock));
         if (reservationDao.existsByDateAndTimeIdAndThemeId(date, timeId, reservation.getTheme().getId())) {
             throw new ReservationConflictException("이미 예약된 시간입니다.");
         }
-        return reservationDao.update(reservation.getId(), date, timeId);
+        return reservationDao.update(updated);
     }
 
     @Transactional

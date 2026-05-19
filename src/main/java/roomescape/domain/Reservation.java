@@ -14,7 +14,7 @@ public class Reservation {
     private final ReservationTime time;
     private final Theme theme;
 
-    private Reservation(Long id, String name, LocalDate date, LocalDateTime createdAt, ReservationTime time, Theme theme) {
+    public Reservation(Long id, String name, LocalDate date, LocalDateTime createdAt, ReservationTime time, Theme theme) {
         validateFields(name, date, time, theme);
         this.id = id;
         this.name = name;
@@ -24,13 +24,9 @@ public class Reservation {
         this.theme = theme;
     }
 
-    public static Reservation create(Long id, String name, LocalDate date, LocalDateTime createdAt, ReservationTime time, Theme theme) {
-        return new Reservation(id, name, date, createdAt, time, theme);
-    }
-
-    public static Reservation create(String name, LocalDate date, LocalDateTime createdAt, ReservationTime time, Theme theme) {
+    public Reservation(String name, LocalDate date, LocalDateTime createdAt, ReservationTime time, Theme theme) {
+        this(null, name, date, createdAt, time, theme);
         validateNotPast(date, time, createdAt);
-        return new Reservation(null, name, date, createdAt, time, theme);
     }
 
     public Reservation withUpdated(LocalDate date, ReservationTime newTime, LocalDateTime now) {

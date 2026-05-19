@@ -54,7 +54,7 @@ class ReservationServiceTest {
         given(themeDao.findById(1L)).willReturn(Optional.of(sampleTheme));
         given(reservationDao.existsByDateAndTimeIdAndThemeId(futureDate, 1L, 1L)).willReturn(false);
         given(reservationDao.save(any(Reservation.class)))
-                .willReturn(Reservation.create(10L, "브라운", futureDate, fixedNow, sampleTime, sampleTheme));
+                .willReturn(new Reservation(10L, "브라운", futureDate, fixedNow, sampleTime, sampleTheme));
 
         Reservation result = reservationService.save("브라운", futureDate, 1L, 1L);
 
@@ -98,7 +98,7 @@ class ReservationServiceTest {
     void delete_정상_삭제() {
         fixClock();
         LocalDate futureDate = fixedNow.toLocalDate().plusDays(1);
-        Reservation reservation = Reservation.create(1L, "브라운", futureDate, fixedNow.minusHours(1), sampleTime, sampleTheme);
+        Reservation reservation = new Reservation(1L, "브라운", futureDate, fixedNow.minusHours(1), sampleTime, sampleTheme);
         given(reservationDao.findById(1L)).willReturn(Optional.of(reservation));
 
         reservationService.delete(1L);
