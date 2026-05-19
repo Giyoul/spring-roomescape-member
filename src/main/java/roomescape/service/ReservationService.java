@@ -12,7 +12,7 @@ import roomescape.dao.ThemeDao;
 import roomescape.domain.Reservation;
 import roomescape.domain.ReservationTime;
 import roomescape.domain.Theme;
-import roomescape.service.dto.ReservationPage;
+import roomescape.service.dto.Page;
 import roomescape.service.exception.ReservationTimeNotFoundException;
 import roomescape.service.exception.ThemeNotFoundException;
 
@@ -70,10 +70,10 @@ public class ReservationService {
     }
 
     @Transactional(readOnly = true)
-    public ReservationPage findAllWithCount(int page, int size) {
+    public Page<Reservation> findAllWithCount(int page, int size) {
         List<Reservation> reservations = reservationDao.findAll(page, size);
         long totalCount = reservationDao.count();
-        return new ReservationPage(reservations, totalCount);
+        return new Page<>(reservations, totalCount);
     }
 
 }

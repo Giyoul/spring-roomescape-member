@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import roomescape.controller.dto.response.AdminReservationResponse;
 import roomescape.controller.dto.response.AdminReservationsResponse;
+import roomescape.domain.Reservation;
 import roomescape.service.ReservationService;
-import roomescape.service.dto.ReservationPage;
+import roomescape.service.dto.Page;
 
 @RequestMapping("/admin/reservations")
 @RestController
@@ -24,8 +25,8 @@ public class AdminReservationController {
     public ResponseEntity<AdminReservationsResponse> getAllReservations(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
-        ReservationPage result = reservationService.findAllWithCount(page, size);
-        List<AdminReservationResponse> responses = result.reservations().stream()
+        Page<Reservation> result = reservationService.findAllWithCount(page, size);
+        List<AdminReservationResponse> responses = result.content().stream()
                 .map(r -> AdminReservationResponse.from(r, r.getTheme()))
                 .toList();
         return ResponseEntity.ok(new AdminReservationsResponse(responses, result.totalCount(), page, size));
