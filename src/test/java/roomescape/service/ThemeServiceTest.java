@@ -11,7 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import roomescape.dao.ReservationDao;
 import roomescape.dao.ThemeDao;
-import roomescape.service.ReservationConflictException;
+import roomescape.service.exception.ReservationConflictException;
 
 @ExtendWith(MockitoExtension.class)
 class ThemeServiceTest {

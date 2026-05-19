@@ -8,6 +8,7 @@ import roomescape.dao.ReservationDao;
 import roomescape.dao.ThemeDao;
 import roomescape.domain.AvailableTime;
 import roomescape.domain.Theme;
+import roomescape.service.exception.ReservationConflictException;
 
 @Service
 public class ThemeService {

@@ -12,7 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import roomescape.dao.ReservationDao;
 import roomescape.dao.ReservationTimeDao;
-import roomescape.service.ReservationConflictException;
+import roomescape.service.exception.ReservationConflictException;
 
 @ExtendWith(MockitoExtension.class)
 class ReservationTimeServiceTest {

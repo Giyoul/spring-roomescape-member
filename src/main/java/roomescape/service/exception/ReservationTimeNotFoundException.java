@@ -1,6 +1,8 @@
 package roomescape.service.exception;
 
-public class ReservationTimeNotFoundException extends RuntimeException {
+import roomescape.domain.exception.NotFoundException;
+
+public class ReservationTimeNotFoundException extends NotFoundException {
     public ReservationTimeNotFoundException(String message) {
         super(message);
     }

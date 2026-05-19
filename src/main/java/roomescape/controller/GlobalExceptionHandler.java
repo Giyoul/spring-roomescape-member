@@ -11,11 +11,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 import roomescape.controller.dto.ErrorResponse;
 import roomescape.domain.exception.InvalidInputException;
+import roomescape.domain.exception.NotFoundException;
 import roomescape.domain.exception.PastReservationException;
-import roomescape.service.ReservationConflictException;
-import roomescape.service.ReservationNotFoundException;
-import roomescape.service.exception.ReservationTimeNotFoundException;
-import roomescape.service.exception.ThemeNotFoundException;
+import roomescape.service.exception.ReservationConflictException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -28,20 +26,8 @@ public class GlobalExceptionHandler {
                 .body(new ErrorResponse(e.getMessage()));
     }
 
-    @ExceptionHandler(ReservationNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleReservationNotFound(ReservationNotFoundException e) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new ErrorResponse(e.getMessage()));
-    }
-
-    @ExceptionHandler(ReservationTimeNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleReservationTimeNotFound(ReservationTimeNotFoundException e) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new ErrorResponse(e.getMessage()));
-    }
-
-    @ExceptionHandler(ThemeNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleThemeNotFound(ThemeNotFoundException e) {
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNotFound(NotFoundException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(new ErrorResponse(e.getMessage()));
     }
